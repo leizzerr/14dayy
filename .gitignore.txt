@@ -1,0 +1,22 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+
+# Visual Studio
+.vs/
+*.csproj
+*.sln
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Logs
+[Ll]ogs/
+*.log
+
+# Unity Connect
+UnityConnectSettings.asset

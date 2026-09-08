@@ -1,0 +1,15 @@
+﻿# Unity folders
+[Ll]ibrary/
+[Tt]emp/
+[Bb]uild/
+[Bb]uilds/
+[Oo]bj/
+# Logs
+[Ll]ogs/
+# OS files
+.DS_Store
+Thumbs.db
+# Visual Studio
+.vs/
+*.suo
+*.user
