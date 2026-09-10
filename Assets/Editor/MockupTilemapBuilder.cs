@@ -1,0 +1,167 @@
+using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+
+public static class MockupTilemapBuilder
+{
+    const int TILE = 16;
+    const int ROWS_PER_COLOR = 5;
+    const float PPU = 16f;
+    const string Color = "gray";
+
+    // Tile coordinates (row, col) to strip out entirely: coin, heart, key, sword.
+    static readonly HashSet<(int, int)> ExcludedTiles = new HashSet<(int, int)>
+    {
+        (0, 13), // coin
+        (1, 13), // heart
+        (3, 13), // key
+        (4, 13), // sword
+    };
+
+    [System.Serializable]
+    public class Cell
+    {
+        public int r, c;
+        public bool hasBase;
+        public int baseR, baseC;
+        public bool hasOverlay;
+        public int overlayR, overlayC;
+        public bool approx;
+    }
+
+    [System.Serializable]
+    public class GridData
+    {
+        public string color;
+        public int cols, rows;
+        public List<Cell> cells;
+    }
+
+    [MenuItem("Tools/Mockups/Build Gray (Individual Objects)")]
+    public static void BuildGrayIndividual()
+    {
+        Debug.Log("MockupTilemapBuilder: building gray scene with individual GameObjects...");
+
+        Directory.CreateDirectory(Application.dataPath + "/Generated/Tilesets");
+
+        string dataPath = Application.dataPath + $"/Editor/MockupBuilderData/flat_{Color}.json";
+        var json = File.ReadAllText(dataPath);
+        var data = JsonUtility.FromJson<GridData>(json);
+
+        string pngPath = Application.dataPath + $"/Assets/Free CC0 Top Down Tileset Pixel Art/Tilesets/tileset_{Color}.png";
+        byte[] bytes = File.ReadAllBytes(pngPath);
+        var srcTex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+        srcTex.LoadImage(bytes);
+        srcTex.filterMode = FilterMode.Point;
+        srcTex.name = $"tileset_{Color}_readable";
+
+        string texAssetPath = $"Assets/Generated/Tilesets/tileset_{Color}_readable.asset";
+        if (AssetDatabase.LoadAssetAtPath<Texture2D>(texAssetPath) != null)
+        {
+            AssetDatabase.DeleteAsset(texAssetPath);
+        }
+        AssetDatabase.CreateAsset(srcTex, texAssetPath);
+        AssetDatabase.SaveAssets();
+        var tex = AssetDatabase.LoadAssetAtPath<Texture2D>(texAssetPath);
+
+        var spriteCache = new Dictionary<(int, int), Sprite>();
+
+        Sprite GetSprite(int row, int col)
+        {
+            var key = (row, col);
+            if (spriteCache.TryGetValue(key, out var cached)) return cached;
+            float x = col * TILE;
+            float yFromBottom = (ROWS_PER_COLOR - 1 - row) * TILE;
+            var rect = new Rect(x, yFromBottom, TILE, TILE);
+            var sprite = Sprite.Create(tex, rect, new Vector2(0.5f, 0.5f), PPU);
+            sprite.name = $"tile_r{row}_c{col}";
+            AssetDatabase.AddObjectToAsset(sprite, texAssetPath);
+            spriteCache[key] = sprite;
+            return sprite;
+        }
+
+        string scenePath = "Assets/Scenes/Mockup_Gray.unity";
+        var scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+
+        // Remove anything left over from previous builds (flat sprite bg, old Tilemap grid, old Level group).
+        foreach (var oldName in new[] { "Mockup_Gray", "Tilemap", "Level" })
+        {
+            var old = GameObject.Find(oldName);
+            if (old != null) Object.DestroyImmediate(old);
+        }
+
+        var spriteMaterial = AssetDatabase.LoadAssetAtPath<Material>(
+            AssetDatabase.GUIDToAssetPath("a97c105638bdf8b4a8650670310a4cd3"));
+
+        var levelGO = new GameObject("Level");
+        var groundParent = new GameObject("Ground");
+        groundParent.transform.SetParent(levelGO.transform);
+        var propsParent = new GameObject("Props");
+        propsParent.transform.SetParent(levelGO.transform);
+
+        int groundCount = 0, propCount = 0, removedCount = 0;
+
+        foreach (var cell in data.cells)
+        {
+            float x = cell.c;
+            float y = -cell.r;
+
+            if (cell.hasBase)
+            {
+                var go = new GameObject($"Ground_{cell.r}_{cell.c}");
+                go.transform.SetParent(groundParent.transform);
+                go.transform.position = new Vector3(x, y, 0);
+                var sr = go.AddComponent<SpriteRenderer>();
+                sr.sprite = GetSprite(cell.baseR, cell.baseC);
+                sr.sortingOrder = 0;
+                if (spriteMaterial != null) sr.sharedMaterial = spriteMaterial;
+                groundCount++;
+            }
+
+            if (cell.hasOverlay)
+            {
+                var key = (cell.overlayR, cell.overlayC);
+                if (ExcludedTiles.Contains(key))
+                {
+                    removedCount++;
+                }
+                else
+                {
+                    var go = new GameObject($"Prop_{cell.r}_{cell.c}");
+                    go.transform.SetParent(propsParent.transform);
+                    go.transform.position = new Vector3(x, y, 0);
+                    var sr = go.AddComponent<SpriteRenderer>();
+                    sr.sprite = GetSprite(cell.overlayR, cell.overlayC);
+                    sr.sortingOrder = 1;
+                    if (spriteMaterial != null) sr.sharedMaterial = spriteMaterial;
+                    propCount++;
+                }
+            }
+        }
+
+        var camGO = GameObject.Find("Main Camera");
+        if (camGO != null)
+        {
+            float w = data.cols;
+            float h = data.rows;
+            camGO.transform.position = new Vector3(w / 2f - 0.5f, -(h / 2f - 0.5f), -10f);
+            var cam = camGO.GetComponent<Camera>();
+            if (cam != null)
+            {
+                cam.orthographic = true;
+                float fitHeight = h / 2f + 1f;
+                float fitWidth = (w / 2f) * (9f / 16f) + 1f;
+                cam.orthographicSize = Mathf.Max(fitHeight, fitWidth);
+            }
+        }
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+
+        Debug.Log($"MockupTilemapBuilder: saved {scenePath} — {groundCount} ground objects, {propCount} prop objects, {removedCount} icon sprites removed (coin/heart/key/sword).");
+    }
+}
