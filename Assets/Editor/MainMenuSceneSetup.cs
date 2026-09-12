@@ -12,6 +12,8 @@ public static class MainMenuSceneSetup
     [MenuItem("Tools/Menu/Build Main Menu Scenes")]
     public static void Build()
     {
+        AssetDatabase.ImportAsset("Assets/Audio/Music/Flags.mp3", ImportAssetOptions.ForceUpdate);
+
         BuildSettingsMenuScene();
         BuildMainMenuScene();
         RegisterScenesInBuildSettings();
@@ -39,7 +41,21 @@ public static class MainMenuSceneSetup
         var quitBtn = CreateButton(canvasGO.transform, "QuitButton", "Выход", new Vector2(0, -90));
         UnityEventTools.AddPersistentListener(quitBtn.onClick, controller.QuitGame);
 
+        SetupMusicManager();
+
         EditorSceneManager.SaveScene(scene, "Assets/Scenes/MainMenu.unity");
+    }
+
+    static void SetupMusicManager()
+    {
+        var musicClip = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Audio/Music/Flags.mp3");
+        var musicGO = new GameObject("MusicManager");
+        var audioSource = musicGO.AddComponent<AudioSource>();
+        audioSource.clip = musicClip;
+        audioSource.loop = true;
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0f;
+        musicGO.AddComponent<MusicManager>();
     }
 
     static void BuildSettingsMenuScene()
@@ -52,10 +68,14 @@ public static class MainMenuSceneSetup
 
         var controller = new GameObject("SettingsMenuController").AddComponent<SettingsMenuController>();
 
-        var title = CreateLabel(canvasGO.transform, "Title", "Настройки", new Vector2(0, 150), 36, FontStyle.Bold);
-        CreateLabel(canvasGO.transform, "Placeholder", "Скоро здесь будут настройки", new Vector2(0, 60), 22, FontStyle.Normal);
+        CreateLabel(canvasGO.transform, "Title", "Настройки", new Vector2(0, 150), 36, FontStyle.Bold);
+        CreateLabel(canvasGO.transform, "MusicVolumeLabel", "Громкость музыки", new Vector2(0, 40), 20, FontStyle.Normal);
 
-        var backBtn = CreateButton(canvasGO.transform, "BackButton", "Назад", new Vector2(0, -90));
+        var musicSlider = CreateSlider(canvasGO.transform, "MusicVolumeSlider", new Vector2(0, 0));
+        controller.musicVolumeSlider = musicSlider;
+        UnityEventTools.AddPersistentListener(musicSlider.onValueChanged, controller.OnMusicVolumeChanged);
+
+        var backBtn = CreateButton(canvasGO.transform, "BackButton", "Назад", new Vector2(0, -110));
         UnityEventTools.AddPersistentListener(backBtn.onClick, controller.BackToMainMenu);
 
         EditorSceneManager.SaveScene(scene, "Assets/Scenes/SettingsMenu.unity");
@@ -137,6 +157,68 @@ public static class MainMenuSceneSetup
         text.color = Color.white;
         text.text = label;
         return text;
+    }
+
+    static Slider CreateSlider(Transform parent, string name, Vector2 anchoredPos)
+    {
+        var go = new GameObject(name);
+        go.transform.SetParent(parent, false);
+        var rect = go.AddComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(320, 20);
+        rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = anchoredPos;
+
+        var bgGO = new GameObject("Background");
+        bgGO.transform.SetParent(go.transform, false);
+        var bgRect = bgGO.AddComponent<RectTransform>();
+        bgRect.anchorMin = new Vector2(0, 0.25f);
+        bgRect.anchorMax = new Vector2(1, 0.75f);
+        bgRect.offsetMin = Vector2.zero;
+        bgRect.offsetMax = Vector2.zero;
+        bgGO.AddComponent<Image>().color = new Color(1f, 1f, 1f, 0.15f);
+
+        var fillAreaGO = new GameObject("Fill Area");
+        fillAreaGO.transform.SetParent(go.transform, false);
+        var fillAreaRect = fillAreaGO.AddComponent<RectTransform>();
+        fillAreaRect.anchorMin = new Vector2(0, 0.25f);
+        fillAreaRect.anchorMax = new Vector2(1, 0.75f);
+        fillAreaRect.offsetMin = new Vector2(5, 0);
+        fillAreaRect.offsetMax = new Vector2(-5, 0);
+
+        var fillGO = new GameObject("Fill");
+        fillGO.transform.SetParent(fillAreaGO.transform, false);
+        var fillRect = fillGO.AddComponent<RectTransform>();
+        fillRect.anchorMin = Vector2.zero;
+        fillRect.anchorMax = Vector2.one;
+        fillRect.sizeDelta = Vector2.zero;
+        var fillImg = fillGO.AddComponent<Image>();
+        fillImg.color = new Color(1f, 1f, 1f, 0.85f);
+
+        var handleAreaGO = new GameObject("Handle Slide Area");
+        handleAreaGO.transform.SetParent(go.transform, false);
+        var handleAreaRect = handleAreaGO.AddComponent<RectTransform>();
+        handleAreaRect.anchorMin = Vector2.zero;
+        handleAreaRect.anchorMax = Vector2.one;
+        handleAreaRect.offsetMin = new Vector2(10, 0);
+        handleAreaRect.offsetMax = new Vector2(-10, 0);
+
+        var handleGO = new GameObject("Handle");
+        handleGO.transform.SetParent(handleAreaGO.transform, false);
+        var handleRect = handleGO.AddComponent<RectTransform>();
+        handleRect.sizeDelta = new Vector2(20, 20);
+        var handleImg = handleGO.AddComponent<Image>();
+        handleImg.color = Color.white;
+
+        var slider = go.AddComponent<Slider>();
+        slider.targetGraphic = handleImg;
+        slider.fillRect = fillRect;
+        slider.handleRect = handleRect;
+        slider.direction = Slider.Direction.LeftToRight;
+        slider.minValue = 0f;
+        slider.maxValue = 1f;
+        slider.value = 1f;
+
+        return slider;
     }
 
     static void RegisterScenesInBuildSettings()
