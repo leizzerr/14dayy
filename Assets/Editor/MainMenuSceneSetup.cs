@@ -42,8 +42,30 @@ public static class MainMenuSceneSetup
         UnityEventTools.AddPersistentListener(quitBtn.onClick, controller.QuitGame);
 
         SetupMusicManager();
+        SetupTimerDisplay(canvasGO.transform);
 
         EditorSceneManager.SaveScene(scene, "Assets/Scenes/MainMenu.unity");
+    }
+
+    static void SetupTimerDisplay(Transform canvasTransform)
+    {
+        var go = new GameObject("TimerText");
+        go.transform.SetParent(canvasTransform, false);
+        var rect = go.AddComponent<RectTransform>();
+        rect.anchorMin = new Vector2(1, 1);
+        rect.anchorMax = new Vector2(1, 1);
+        rect.pivot = new Vector2(1, 1);
+        rect.sizeDelta = new Vector2(360, 40);
+        rect.anchoredPosition = new Vector2(-20, -20);
+        var text = go.AddComponent<Text>();
+        text.font = UiFont;
+        text.fontSize = 20;
+        text.alignment = TextAnchor.MiddleRight;
+        text.color = Color.white;
+        text.text = "";
+
+        var display = go.AddComponent<GameTimerDisplay>();
+        display.timerText = text;
     }
 
     static void SetupMusicManager()
@@ -69,13 +91,19 @@ public static class MainMenuSceneSetup
         var controller = new GameObject("SettingsMenuController").AddComponent<SettingsMenuController>();
 
         CreateLabel(canvasGO.transform, "Title", "Настройки", new Vector2(0, 150), 36, FontStyle.Bold);
-        CreateLabel(canvasGO.transform, "MusicVolumeLabel", "Громкость музыки", new Vector2(0, 40), 20, FontStyle.Normal);
+        CreateLabel(canvasGO.transform, "MusicVolumeLabel", "Громкость музыки", new Vector2(0, 70), 20, FontStyle.Normal);
 
-        var musicSlider = CreateSlider(canvasGO.transform, "MusicVolumeSlider", new Vector2(0, 0));
+        var musicSlider = CreateSlider(canvasGO.transform, "MusicVolumeSlider", new Vector2(0, 30));
         controller.musicVolumeSlider = musicSlider;
         UnityEventTools.AddPersistentListener(musicSlider.onValueChanged, controller.OnMusicVolumeChanged);
 
-        var backBtn = CreateButton(canvasGO.transform, "BackButton", "Назад", new Vector2(0, -110));
+        CreateLabel(canvasGO.transform, "SfxVolumeLabel", "Громкость звуков", new Vector2(0, -20), 20, FontStyle.Normal);
+
+        var sfxSlider = CreateSlider(canvasGO.transform, "SfxVolumeSlider", new Vector2(0, -60));
+        controller.sfxVolumeSlider = sfxSlider;
+        UnityEventTools.AddPersistentListener(sfxSlider.onValueChanged, controller.OnSfxVolumeChanged);
+
+        var backBtn = CreateButton(canvasGO.transform, "BackButton", "Назад", new Vector2(0, -150));
         UnityEventTools.AddPersistentListener(backBtn.onClick, controller.BackToMainMenu);
 
         EditorSceneManager.SaveScene(scene, "Assets/Scenes/SettingsMenu.unity");

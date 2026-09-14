@@ -53,7 +53,37 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.6.0f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/TargetingPacks/netstandard2.1/analyzers/dotnet/roslyn4.0/cs/System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Scripts/SanityPillVase.cs" />
+    <Compile Include="Assets/Scripts/DepthCheckDoor.cs" />
+    <Compile Include="Assets/Scripts/IntroSequence.cs" />
+    <Compile Include="Assets/SceneDoor.cs" />
+    <Compile Include="Assets/Scripts/DoorExitTrigger.cs" />
+    <Compile Include="Assets/Scripts/SfxSource.cs" />
+    <Compile Include="Assets/Scripts/SanityMeter.cs" />
+    <Compile Include="Assets/Scripts/Interactable.cs" />
+    <Compile Include="Assets/Scripts/ContinueExploreTrigger.cs" />
+    <Compile Include="Assets/Scripts/MonsterFearZone.cs" />
+    <Compile Include="Assets/Scripts/WhiteMonster.cs" />
+    <Compile Include="Assets/Scripts/SfxVolume.cs" />
+    <Compile Include="Assets/Scripts/RoomEntranceBlocker.cs" />
+    <Compile Include="Assets/Scripts/GameTimerDisplay.cs" />
+    <Compile Include="Assets/Scripts/UsbFlashVase.cs" />
+    <Compile Include="Assets/Scripts/GameOverUI.cs" />
+    <Compile Include="Assets/Scripts/MockupEndingManager.cs" />
+    <Compile Include="Assets/Scripts/PlayerInventory.cs" />
+    <Compile Include="Assets/Scripts/EndingScreenController.cs" />
+    <Compile Include="Assets/Scripts/DepthStoneVase.cs" />
+    <Compile Include="Assets/Scripts/PlayerDirectionalSprite.cs" />
     <Compile Include="Assets/Scripts/EnemyPatrol.cs" />
+    <Compile Include="Assets/Scripts/InteractionHintIcon.cs" />
+    <Compile Include="Assets/Scripts/MusicManager.cs" />
+    <Compile Include="Assets/Scripts/SanityUI.cs" />
+    <Compile Include="Assets/Scripts/MainMenuController.cs" />
+    <Compile Include="Assets/Scripts/LightSwitchVase.cs" />
+    <Compile Include="Assets/Scripts/DialogueUI.cs" />
+    <Compile Include="Assets/Scripts/InteractionManager.cs" />
+    <Compile Include="Assets/Scripts/SettingsMenuController.cs" />
+    <Compile Include="Assets/Scripts/GameTimer.cs" />
     <Compile Include="Assets/PlayerMove.cs" />
   </ItemGroup>
   <ItemGroup>

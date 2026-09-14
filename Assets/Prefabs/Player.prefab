@@ -103,8 +103,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
@@ -226,7 +226,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: a237706ef50445cb8858746504dc505e, type: 3}
+  m_Sprite: {fileID: -1039363186123251405, guid: 3ef7ebeee4523ab4b889b06593927958, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8c2375aa93c77b4fa3a9b4b6a03037b, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   speed: 4
 --- !u!114 &5641177409742394978
@@ -333,16 +333,97 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96858222335ab41c3b0e280e4306f980, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDirectionalSprite
-  south: {fileID: 21300000, guid: a237706ef50445cb8858746504dc505e, type: 3}
-  southEast: {fileID: 21300000, guid: 185d7a874c6d4d93bbb6a0c349f2c2ce, type: 3}
-  east: {fileID: 21300000, guid: 09c9a7520dd7462aab2c59d426e878c9, type: 3}
-  northEast: {fileID: 21300000, guid: a10a528b97264c52a1ea8149dd1471e2, type: 3}
-  north: {fileID: 21300000, guid: d103729e9d7941668681293906c247dc, type: 3}
-  northWest: {fileID: 21300000, guid: 6a149c57a62b427b921d145cb568592f, type: 3}
-  west: {fileID: 21300000, guid: f185731eff2445059e2c19868a9882cc, type: 3}
-  southWest: {fileID: 21300000, guid: b45477cd26c643cfbf569f618b11f966, type: 3}
+  south:
+    idle:
+    - {fileID: -1039363186123251405, guid: 3ef7ebeee4523ab4b889b06593927958, type: 3}
+    - {fileID: -1992197465140117551, guid: 3ef7ebeee4523ab4b889b06593927958, type: 3}
+    - {fileID: -7288105842485943155, guid: 3ef7ebeee4523ab4b889b06593927958, type: 3}
+    - {fileID: -253205684113149000, guid: 3ef7ebeee4523ab4b889b06593927958, type: 3}
+    walk:
+    - {fileID: 1166045833237864433, guid: 622d1f495a3e5524eb7c78b690d1538a, type: 3}
+    - {fileID: -1419701473471474520, guid: 622d1f495a3e5524eb7c78b690d1538a, type: 3}
+    - {fileID: -2432260541627123346, guid: 622d1f495a3e5524eb7c78b690d1538a, type: 3}
+    - {fileID: 6745263508366741167, guid: 622d1f495a3e5524eb7c78b690d1538a, type: 3}
+  southEast:
+    idle:
+    - {fileID: 6533247599873354238, guid: 072be9702da7e6e4eaefbc29ed1b5658, type: 3}
+    - {fileID: -6083023609826422822, guid: 072be9702da7e6e4eaefbc29ed1b5658, type: 3}
+    - {fileID: -1933345445096717306, guid: 072be9702da7e6e4eaefbc29ed1b5658, type: 3}
+    - {fileID: 1384739182800815655, guid: 072be9702da7e6e4eaefbc29ed1b5658, type: 3}
+    walk:
+    - {fileID: 9008782525336773040, guid: 2e304c3d1e589ea4c8b3bd262afa2c19, type: 3}
+    - {fileID: -4609599338881708756, guid: 2e304c3d1e589ea4c8b3bd262afa2c19, type: 3}
+    - {fileID: -1483188167458119440, guid: 2e304c3d1e589ea4c8b3bd262afa2c19, type: 3}
+    - {fileID: -1792432699351526701, guid: 2e304c3d1e589ea4c8b3bd262afa2c19, type: 3}
+  east:
+    idle:
+    - {fileID: -7804732830110499596, guid: 97b9881215ea4de49981d89b6d7facef, type: 3}
+    - {fileID: -8819242495391121128, guid: 97b9881215ea4de49981d89b6d7facef, type: 3}
+    - {fileID: -8488148854512182849, guid: 97b9881215ea4de49981d89b6d7facef, type: 3}
+    - {fileID: -1366922487531455272, guid: 97b9881215ea4de49981d89b6d7facef, type: 3}
+    walk:
+    - {fileID: -1604758111454029514, guid: 676d89f1049723444b4eac2ee3f0b102, type: 3}
+    - {fileID: -5619587270176444128, guid: 676d89f1049723444b4eac2ee3f0b102, type: 3}
+    - {fileID: 7946863922563277680, guid: 676d89f1049723444b4eac2ee3f0b102, type: 3}
+    - {fileID: 5854920219846358407, guid: 676d89f1049723444b4eac2ee3f0b102, type: 3}
+  northEast:
+    idle:
+    - {fileID: 3145964083468848218, guid: 47b4e2d167c92d442a66a7c85c79aac9, type: 3}
+    - {fileID: -1731930994923560367, guid: 47b4e2d167c92d442a66a7c85c79aac9, type: 3}
+    - {fileID: -382873181684217574, guid: 47b4e2d167c92d442a66a7c85c79aac9, type: 3}
+    - {fileID: -5449535356579953539, guid: 47b4e2d167c92d442a66a7c85c79aac9, type: 3}
+    walk:
+    - {fileID: -5878415317238458324, guid: 9ec16bfa29c15f147bc6519cd512e774, type: 3}
+    - {fileID: -4361528025824533879, guid: 9ec16bfa29c15f147bc6519cd512e774, type: 3}
+    - {fileID: -165289586875163388, guid: 9ec16bfa29c15f147bc6519cd512e774, type: 3}
+    - {fileID: -8118502069309623214, guid: 9ec16bfa29c15f147bc6519cd512e774, type: 3}
+  north:
+    idle:
+    - {fileID: -3130734782326503737, guid: 446abccfe4877ec469edf11fe083feb8, type: 3}
+    - {fileID: -4023382060486229378, guid: 446abccfe4877ec469edf11fe083feb8, type: 3}
+    - {fileID: -7829087355033197309, guid: 446abccfe4877ec469edf11fe083feb8, type: 3}
+    - {fileID: -8702260057766902715, guid: 446abccfe4877ec469edf11fe083feb8, type: 3}
+    walk:
+    - {fileID: 1733819230353929731, guid: f5e0da89e50969e4f802963b8cec489d, type: 3}
+    - {fileID: -9134833977471932272, guid: f5e0da89e50969e4f802963b8cec489d, type: 3}
+    - {fileID: 8213194844177001272, guid: f5e0da89e50969e4f802963b8cec489d, type: 3}
+    - {fileID: 5000539368544734410, guid: f5e0da89e50969e4f802963b8cec489d, type: 3}
+  northWest:
+    idle:
+    - {fileID: 8544508265169475368, guid: 6f2c8922dfc7c6e489f5a2ff586b7fc6, type: 3}
+    - {fileID: -7925828797041161650, guid: 6f2c8922dfc7c6e489f5a2ff586b7fc6, type: 3}
+    - {fileID: 2485273070788614855, guid: 6f2c8922dfc7c6e489f5a2ff586b7fc6, type: 3}
+    - {fileID: 4805511639934218583, guid: 6f2c8922dfc7c6e489f5a2ff586b7fc6, type: 3}
+    walk:
+    - {fileID: 4009700217968166665, guid: 100eecb9f81a4b046bae9ce7680cd6e9, type: 3}
+    - {fileID: -2421744865767806239, guid: 100eecb9f81a4b046bae9ce7680cd6e9, type: 3}
+    - {fileID: -2621298590069758764, guid: 100eecb9f81a4b046bae9ce7680cd6e9, type: 3}
+    - {fileID: -7474421208854519503, guid: 100eecb9f81a4b046bae9ce7680cd6e9, type: 3}
+  west:
+    idle:
+    - {fileID: -6025924883334753697, guid: 644685e64cf9a3c41aacab0742322475, type: 3}
+    - {fileID: 6248508547983405935, guid: 644685e64cf9a3c41aacab0742322475, type: 3}
+    - {fileID: 8533555966423842330, guid: 644685e64cf9a3c41aacab0742322475, type: 3}
+    - {fileID: -7398369621211692827, guid: 644685e64cf9a3c41aacab0742322475, type: 3}
+    walk:
+    - {fileID: -1565671520543451414, guid: 16816505d7cab30458610ffbe77a250e, type: 3}
+    - {fileID: 2169977083116866009, guid: 16816505d7cab30458610ffbe77a250e, type: 3}
+    - {fileID: -6664480732227951636, guid: 16816505d7cab30458610ffbe77a250e, type: 3}
+    - {fileID: 9181857353986569414, guid: 16816505d7cab30458610ffbe77a250e, type: 3}
+  southWest:
+    idle:
+    - {fileID: -4650688694171317417, guid: a2d0b04d3a3687448aab17978140e60b, type: 3}
+    - {fileID: 639214909785791694, guid: a2d0b04d3a3687448aab17978140e60b, type: 3}
+    - {fileID: 8391159145257720512, guid: a2d0b04d3a3687448aab17978140e60b, type: 3}
+    - {fileID: 1017550636747963738, guid: a2d0b04d3a3687448aab17978140e60b, type: 3}
+    walk:
+    - {fileID: -1764783206457176150, guid: bb45d0326da37d44ea35ede4e9b9ce59, type: 3}
+    - {fileID: -1584157131383711386, guid: bb45d0326da37d44ea35ede4e9b9ce59, type: 3}
+    - {fileID: 21102253956139929, guid: bb45d0326da37d44ea35ede4e9b9ce59, type: 3}
+    - {fileID: 3487784034905968240, guid: bb45d0326da37d44ea35ede4e9b9ce59, type: 3}
+  framesPerSecond: 8
 --- !u!114 &1543484694314946509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +434,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e08a730001fb148a2ad6ee0bd32bfb92, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::InteractionManager
   dialogueUI: {fileID: 0}
   interactKey: 101
@@ -367,7 +448,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 503a1e4cb3e3e4a8e9c6e76ca0e5ad7e, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::SanityMeter
   duration: 90
   enemyProximityRadius: 4
@@ -382,6 +463,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6119cdd2d8daf4e6da580f19fa4bdfa8, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
   hasDepthStone: 0

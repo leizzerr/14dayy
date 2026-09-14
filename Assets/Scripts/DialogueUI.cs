@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,11 @@ public class DialogueUI : MonoBehaviour
     public Text promptText;
 
     public bool IsOpen => panel != null && panel.activeSelf;
+
+    // Fires when the panel actually closes — i.e. not when advancing to a queued
+    // message. Lets callers (like IntroSequence) know once every chained message
+    // has been read, not just the first one.
+    public event Action OnFullyClosed;
 
     float autoHideTimer = -1f;
     string queuedTitle;
@@ -67,6 +73,7 @@ public class DialogueUI : MonoBehaviour
             return;
         }
         if (panel != null) panel.SetActive(false);
+        OnFullyClosed?.Invoke();
     }
 
     public void ShowPrompt(string text)

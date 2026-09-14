@@ -53,7 +53,15 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.6.0f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/TargetingPacks/netstandard2.1/analyzers/dotnet/roslyn4.0/cs/System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Editor/MockupGrayColliders.cs" />
+    <Compile Include="Assets/Editor/RoomAndPlayerSetup.cs" />
+    <Compile Include="Assets/Editor/MainMenuSceneSetup.cs" />
     <Compile Include="Assets/Editor/AddPatrolEnemy.cs" />
+    <Compile Include="Assets/Editor/FlashlightSceneSetup.cs" />
+    <Compile Include="Assets/Editor/Cave2SfxSetup.cs" />
+    <Compile Include="Assets/Editor/MockupTilemapBuilder.cs" />
+    <Compile Include="Assets/Editor/MockupGrayEndingSetup.cs" />
+    <Compile Include="Assets/Editor/InteractionSceneSetup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

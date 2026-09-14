@@ -1,10 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SanityMeter : MonoBehaviour
 {
     public float duration = 90f;
     public float enemyProximityRadius = 4f;
     public float enemyMultiplier = 1.5f;
+
+    // Kept simple for these two: first scene is the intro, last scene is the
+    // ending — no reason to pressure the player with a draining meter there.
+    static readonly HashSet<string> NoDrainScenes = new HashSet<string> { "1room", "Mockup_Gray" };
 
     public float Sanity { get; private set; } = 1f;
     public int PillCount { get; private set; }
@@ -33,6 +39,12 @@ public class SanityMeter : MonoBehaviour
     void Update()
     {
         if (gameOver) return;
+
+        if (NoDrainScenes.Contains(SceneManager.GetActiveScene().name))
+        {
+            ui?.SetFill(Sanity);
+            return;
+        }
 
         float rate = 1f / duration;
         if (IsNearEnemy()) rate *= enemyMultiplier;

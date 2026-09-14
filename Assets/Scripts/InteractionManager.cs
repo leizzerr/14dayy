@@ -26,7 +26,11 @@ public class InteractionManager : MonoBehaviour
     public void Unregister(Interactable interactable)
     {
         inRange.Remove(interactable);
-        if (current == interactable) current = null;
+        if (current == interactable)
+        {
+            interactable.SetHighlighted(false);
+            current = null;
+        }
 
         // The player walked out of range of whatever opened the current dialogue —
         // close it instead of leaving it hanging on screen.
@@ -49,7 +53,14 @@ public class InteractionManager : MonoBehaviour
             return;
         }
 
-        current = FindClosest();
+        var newCurrent = FindClosest();
+        if (newCurrent != current)
+        {
+            current?.SetHighlighted(false);
+            newCurrent?.SetHighlighted(true);
+            current = newCurrent;
+        }
+
         if (dialogueUI != null)
         {
             if (current != null) dialogueUI.ShowPrompt("[E] Осмотреть");

@@ -12,6 +12,7 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayGame()
     {
+        GameTimer.Start();
         SceneManager.LoadScene("1room");
     }
 
