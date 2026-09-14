@@ -105,11 +105,6 @@ public static class InteractionSceneSetup
         bodyText.verticalOverflow = VerticalWrapMode.Overflow;
         bodyText.text = "Описание";
 
-        var dialogueUI = canvasGO.AddComponent<DialogueUI>();
-        dialogueUI.panel = panelGO;
-        dialogueUI.titleText = titleText;
-        dialogueUI.bodyText = bodyText;
-
         // --- Prompt ---
         var promptGO = new GameObject("PromptText");
         promptGO.transform.SetParent(canvasGO.transform, false);
@@ -127,11 +122,17 @@ public static class InteractionSceneSetup
         promptText.text = "[E] Осмотреть";
         promptGO.SetActive(false);
 
+        var dialogueUI = canvasGO.AddComponent<DialogueUI>();
+        dialogueUI.panel = panelGO;
+        dialogueUI.titleText = titleText;
+        dialogueUI.bodyText = bodyText;
+        dialogueUI.promptObject = promptGO;
+        dialogueUI.promptText = promptText;
+
         // --- Interaction manager on Player ---
         var interactionManager = playerGO.GetComponent<InteractionManager>();
         if (interactionManager == null) interactionManager = playerGO.AddComponent<InteractionManager>();
         interactionManager.dialogueUI = dialogueUI;
-        interactionManager.promptObject = promptGO;
         interactionManager.interactKey = KeyCode.E;
 
         // --- Interactable on every prop ---

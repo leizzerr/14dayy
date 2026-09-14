@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(CircleCollider2D))]
 public class Interactable : MonoBehaviour
@@ -6,6 +7,7 @@ public class Interactable : MonoBehaviour
     public string displayName = "Предмет";
     [TextArea] public string description = "Здесь ничего интересного.";
     public float interactRadius = 0.6f;
+    public UnityEvent onExamine = new UnityEvent();
 
     void Reset()
     {

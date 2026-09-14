@@ -150,9 +150,13 @@ GameObject:
   - component: {fileID: 3852218353939757267}
   - component: {fileID: 3017340426558245138}
   - component: {fileID: 4044634841041100034}
+  - component: {fileID: 5641177409742394978}
+  - component: {fileID: 1543484694314946509}
+  - component: {fileID: 4780257719103725951}
+  - component: {fileID: 5399768369149840680}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -222,8 +226,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_Sprite: {fileID: 21300000, guid: a237706ef50445cb8858746504dc505e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -277,7 +281,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.32, y: 0.48}
   m_EdgeRadius: 0
 --- !u!50 &3017340426558245138
 Rigidbody2D:
@@ -319,3 +323,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   speed: 4
+--- !u!114 &5641177409742394978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972324699461235685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96858222335ab41c3b0e280e4306f980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDirectionalSprite
+  south: {fileID: 21300000, guid: a237706ef50445cb8858746504dc505e, type: 3}
+  southEast: {fileID: 21300000, guid: 185d7a874c6d4d93bbb6a0c349f2c2ce, type: 3}
+  east: {fileID: 21300000, guid: 09c9a7520dd7462aab2c59d426e878c9, type: 3}
+  northEast: {fileID: 21300000, guid: a10a528b97264c52a1ea8149dd1471e2, type: 3}
+  north: {fileID: 21300000, guid: d103729e9d7941668681293906c247dc, type: 3}
+  northWest: {fileID: 21300000, guid: 6a149c57a62b427b921d145cb568592f, type: 3}
+  west: {fileID: 21300000, guid: f185731eff2445059e2c19868a9882cc, type: 3}
+  southWest: {fileID: 21300000, guid: b45477cd26c643cfbf569f618b11f966, type: 3}
+--- !u!114 &1543484694314946509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972324699461235685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e08a730001fb148a2ad6ee0bd32bfb92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionManager
+  dialogueUI: {fileID: 0}
+  interactKey: 101
+--- !u!114 &4780257719103725951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972324699461235685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503a1e4cb3e3e4a8e9c6e76ca0e5ad7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SanityMeter
+  duration: 90
+  enemyProximityRadius: 4
+  enemyMultiplier: 1.5
+--- !u!114 &5399768369149840680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972324699461235685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6119cdd2d8daf4e6da580f19fa4bdfa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
+  hasDepthStone: 0

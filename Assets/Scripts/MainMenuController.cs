@@ -12,7 +12,7 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Mockup_Gray");
+        SceneManager.LoadScene("1room");
     }
 
     public void OpenSettings()
@@ -22,7 +22,14 @@ public class MainMenuController : MonoBehaviour
 
     public void QuitGame()
     {
-        // Свернуть окно можно только в Windows-сборке, на других платформах выходим из игры
+        // В редакторе выходим из режима воспроизведения
+        if (Application.isEditor)
+        {
+            StopPlayMode();
+            return;
+        }
+
+        // В Windows-сборке сворачиваем окно
         if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
             ShowWindow(GetActiveWindow(), SW_MINIMIZE);
@@ -30,5 +37,15 @@ public class MainMenuController : MonoBehaviour
         }
 
         Application.Quit();
+    }
+
+    static void StopPlayMode()
+    {
+        // UnityEditor недоступен в сборке, поэтому обращаемся к нему через рефлексию
+        var editorApplication = Type.GetType("UnityEditor.EditorApplication, UnityEditor");
+        if (editorApplication == null) return;
+
+        var isPlaying = editorApplication.GetProperty("isPlaying");
+        if (isPlaying != null) isPlaying.SetValue(null, false);
     }
 }

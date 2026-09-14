@@ -6,6 +6,8 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 input;
 
+    public Vector2 MoveInput => input;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
