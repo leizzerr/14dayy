@@ -45,6 +45,11 @@ public class ContinueExploreTrigger : MonoBehaviour
 
     void Update()
     {
+        // Same staleness issue as DoorExitTrigger: the door can flip BothRead without
+        // this trigger being re-examined, so refresh every frame instead of only in
+        // OnExamined.
+        RefreshDescription();
+
         if (!playerInRange) return;
         var mgr = MockupEndingManager.Instance;
         if (mgr == null || !mgr.BothRead) return;

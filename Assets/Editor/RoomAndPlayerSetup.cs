@@ -207,6 +207,40 @@ public static class RoomAndPlayerSetup
         Debug.Log("RoomAndPlayerSetup: cave2's Prop_8_12 (10) now runs the USB flash-drive puzzle (3 tries, then spawns the Global Light).");
     }
 
+    // Player, the vases, and the enemies in cave2 got dragged under "Canvas (1)" by
+    // accident at some point, becoming RectTransform children of a Screen Space -
+    // Overlay canvas. The Editor's Scene view still renders them in a plausible spot,
+    // but a real build recomputes that canvas's RectTransform for the runtime screen,
+    // so anything hanging off it ends up nowhere near the actual level ("floating in
+    // empty space" at runtime). Re-parent everything except the canvas's real UI
+    // child (ScareOverlay) back to the scene root, keeping their apparent position.
+    [MenuItem("Tools/Rooms/Fix Cave2 Objects Parented Under Canvas")]
+    public static void FixCave2CanvasParenting()
+    {
+        var scene = OpenSceneSafely("Assets/Scenes/cave2.unity");
+
+        var badCanvas = GameObject.Find("Canvas (1)");
+        if (badCanvas == null)
+        {
+            Debug.LogWarning("RoomAndPlayerSetup: 'Canvas (1)' not found in cave2 — nothing to fix.");
+            return;
+        }
+
+        var toMove = new List<Transform>();
+        foreach (Transform child in badCanvas.transform)
+        {
+            if (child.name == "ScareOverlay") continue;
+            toMove.Add(child);
+        }
+
+        foreach (var child in toMove)
+            child.SetParent(null, true);
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        Debug.Log($"RoomAndPlayerSetup: moved {toMove.Count} object(s) (Player, vases, enemies) out from under 'Canvas (1)' back to the scene root, keeping their current apparent position.");
+    }
+
     // Every vase's only Collider2D is the trigger Interactable needs for range
     // detection, so the player has always been able to walk straight through them.
     // Scans every room scene and gives each vase a small solid collider too.

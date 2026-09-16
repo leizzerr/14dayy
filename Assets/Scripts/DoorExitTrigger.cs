@@ -6,7 +6,7 @@ public class DoorExitTrigger : MonoBehaviour
     public string hesitateDescription =
         "Дверь наружу. Можно было бы уйти... но что-то останавливает — кажется, здесь ещё не всё осмотрено.";
     public string readyDescription =
-        "Дверь наружу. Теперь ты готов уйти. [Space] чтобы покинуть пещеру.";
+        "Дверь наружу. Кажется, я осмотрел здесь всё. [Space] чтобы покинуть пещеру.";
 
     Interactable interactable;
     DialogueUI dialogueUI;
@@ -45,6 +45,12 @@ public class DoorExitTrigger : MonoBehaviour
 
     void Update()
     {
+        // The other exploration trigger (Ground_13_9) can flip MockupEndingManager's
+        // BothRead flag without this door ever being re-examined — refresh here every
+        // frame instead of only in OnExamined, so the door's text doesn't stay stale
+        // ("still need to look at something") after the player already finished both.
+        RefreshDescription();
+
         if (!playerInRange) return;
         var mgr = MockupEndingManager.Instance;
         if (mgr == null || !mgr.BothRead) return;

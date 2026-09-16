@@ -5,6 +5,9 @@ EditorUserSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
   m_ConfigSettings:
+    GraphicsSettingsInspector_UserSettings:
+      value: 18134705175a055722080a3115371d4a0d55006876786860616b0471b8b16560acbf66b9b66d67696b55b76f566e5222be481902e60e06021f0bdb1b1df3240a01c036c417cd5d46892c12c7d904f4edd2dfdaef96d9e2d6dadab2fbfaf7a0cdfbf8b3feb8bbfdcce49af0b8b9c7d5d7c0c685c1c2c2ccd58adbc1d6b2dadcd6f8c596d3cdc5c5
+      flags: 0
     QuickInstaller_com.unity.purchasing_installRecorded:
       value: 2550581500
       flags: 0
@@ -24,25 +27,25 @@ EditorUserSettings:
       value: 55090d020751595f5d5d5c2443770a48454f48297b7875337f781f6ae6b6656f
       flags: 0
     RecentlyUsedSceneGuid-3:
-      value: 535755055c005f0b550c5d7748770c14124f1b2f7a2c7f6828781f35e3b2376d
-      flags: 0
-    RecentlyUsedSceneGuid-4:
       value: 01020d05070d0c020959582749775a42414e4b732d7e70662e711b64b3b66c3a
       flags: 0
-    RecentlyUsedSceneGuid-5:
+    RecentlyUsedSceneGuid-4:
       value: 0508525504020d5e5a0a5d7516700844124e4b7d297025687c2b1b32b6b36669
       flags: 0
-    RecentlyUsedSceneGuid-6:
-      value: 500405055c0c500b555f0e7644730c47174f41722a71223375791863bbe4603c
-      flags: 0
-    RecentlyUsedSceneGuid-7:
-      value: 5b520d0503545b0d0c0c0a2715770748154f4d2c7d7d7e627a7d4a35b4e1646a
-      flags: 0
-    RecentlyUsedSceneGuid-8:
+    RecentlyUsedSceneGuid-5:
       value: 5703515f5307085e0e58587343775e461315492b7e2a716228781966b3b2623d
       flags: 0
-    RecentlyUsedSceneGuid-9:
+    RecentlyUsedSceneGuid-6:
+      value: 5b520d0503545b0d0c0c0a2715770748154f4d2c7d7d7e627a7d4a35b4e1646a
+      flags: 0
+    RecentlyUsedSceneGuid-7:
+      value: 535755055c005f0b550c5d7748770c14124f1b2f7a2c7f6828781f35e3b2376d
+      flags: 0
+    RecentlyUsedSceneGuid-8:
       value: 5a50055456000a5a0e0f082116725944151541292e717e682e714f65bbe46739
+      flags: 0
+    RecentlyUsedSceneGuid-9:
+      value: 500405055c0c500b555f0e7644730c47174f41722a71223375791863bbe4603c
       flags: 0
     vcSharedLogLevel:
       value: 0d5e400f0650

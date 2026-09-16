@@ -4,6 +4,8 @@
 [Bb]uild/
 [Bb]uilds/
 [Oo]bj/
+build.app/
+build_BackUpThisFolder_ButDontShipItWithYourGame/
 # Logs
 [Ll]ogs/
 # OS files
